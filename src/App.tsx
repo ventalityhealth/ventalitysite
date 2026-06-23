@@ -1,6 +1,7 @@
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { Philosophy } from './components/Philosophy'
+import { ScrollySection } from './components/ScrollySection'
 import { Products } from './components/Products'
 import { Ingredients } from './components/Ingredients'
 import { Rituals } from './components/Rituals'
@@ -15,6 +16,7 @@ export default function App() {
       <main>
         <Hero />
         <Philosophy />
+        <ScrollySection />
         <Products />
         <Ingredients />
         <Rituals />

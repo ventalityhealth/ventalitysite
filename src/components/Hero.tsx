@@ -25,7 +25,7 @@ export function Hero() {
 
       {/* Hero content */}
       <div className="relative z-10 flex flex-col items-center px-5 pt-28 text-center sm:px-8 sm:pt-32 md:pt-40">
-        <h1 className="mb-6 font-garamond text-4xl font-normal leading-[1.08] tracking-tight text-white sm:mb-8 sm:text-6xl md:text-8xl lg:text-9xl">
+        <h1 className="mb-6 font-garamond text-3xl font-normal leading-[1.08] tracking-tight text-white sm:mb-8 sm:text-4xl md:text-6xl lg:text-7xl">
           <span className="block">
             <StaggeredFade text="NOURISH YOUR" />
           </span>
