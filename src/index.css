@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -15,8 +15,8 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #ffffff;
-  background-color: #010101;
+  color: #111111;
+  background-color: #f9f8f5;
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -24,9 +24,9 @@ body {
   font-family: 'Garamond', 'Times New Roman', serif;
 }
 
-/* ---- Mobile menu glass ---- */
+/* ── Dark-section glass (hero / scrolly) ─────────────────────────────────── */
 .mobile-menu-glass {
-  background: rgba(10, 10, 10, 0.7);
+  background: rgba(10, 10, 10, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -34,16 +34,16 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* ---- Liquid glass ---- */
 .liquid-glass {
-  background: rgba(255, 255, 255, 0.01);
+  background: rgba(255, 255, 255, 0.02);
   background-blend-mode: luminosity;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: none;
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .liquid-glass::before {
@@ -54,48 +54,81 @@ body {
   padding: 1.4px;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.45) 0%,
-    rgba(255, 255, 255, 0.15) 20%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0.15) 80%,
-    rgba(255, 255, 255, 0.45) 100%
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0)    40%,
+    rgba(255,255,255,0)    60%,
+    rgba(255,255,255,0.15) 80%,
+    rgba(255,255,255,0.45) 100%
   );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
 }
 
 .liquid-glass:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15);
 }
 
-.liquid-glass:active {
-  transform: scale(0.98);
+.liquid-glass:active { transform: scale(0.98); }
+
+/* ── Light-section nav ───────────────────────────────────────────────────── */
+.navbar-glass-light {
+  background: rgba(249, 248, 245, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
 }
 
-/* ---- Seamless ingredient marquee ---- */
+/* ── Light-section card ──────────────────────────────────────────────────── */
+.glass-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+/* ── Forest-green solid button ───────────────────────────────────────────── */
+.btn-forest {
+  background: #1a3c2b;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.15s;
+}
+
+.btn-forest::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.btn-forest:hover  { background: #2d6a4f; }
+.btn-forest:active { transform: scale(0.98); }
+
+/* ── Ingredient marquee ──────────────────────────────────────────────────── */
 .ingredient-track {
   display: flex;
   width: max-content;
-  animation: ingredient-scroll 38s linear infinite;
+  animation: ingredient-scroll 40s linear infinite;
 }
 
 @keyframes ingredient-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    /* shift by exactly one copy of the list for a seamless loop */
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ingredient-track {
-    animation: none;
-  }
+  .ingredient-track { animation: none; }
+}
+
+/* ── Section hairline divider ────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,0,0,0.08), transparent);
 }

@@ -5,55 +5,54 @@ import { NAV_LINKS } from '../data'
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  /** true  → over dark hero; false → over light body sections */
+  const [onHero, setOnHero] = useState(true)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const update = () => setOnHero(window.scrollY < window.innerHeight * 0.85)
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
   }, [])
+
+  const textBase    = onHero ? 'text-white'     : 'text-[#111111]'
+  const textMuted   = onHero ? 'text-white/75'  : 'text-[#555555]'
+  const textHover   = onHero ? 'hover:text-white' : 'hover:text-[#111111]'
+  const navBg       = onHero ? 'bg-transparent'   : 'navbar-glass-light'
 
   return (
     <>
-      <nav
-        className={`fixed inset-x-0 top-0 z-40 transition-colors duration-500 ${
-          scrolled ? 'mobile-menu-glass' : 'bg-transparent'
-        }`}
-      >
+      <nav className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${navBg}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 md:justify-center md:gap-16">
           <a
             href="#top"
-            className="text-sm font-light uppercase tracking-[0.25em] text-white sm:text-base md:tracking-[0.3em]"
+            className={`text-sm font-light uppercase tracking-[0.25em] transition-colors duration-500 sm:text-base md:tracking-[0.3em] ${textBase}`}
           >
             Ventality
           </a>
 
-          {/* Desktop links */}
           <div className="hidden items-center gap-10 md:flex">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-xs uppercase tracking-[0.2em] text-white/80 transition-colors duration-300 hover:text-white"
+                className={`text-xs uppercase tracking-[0.2em] transition-colors duration-300 ${textMuted} ${textHover}`}
               >
                 {link.label}
               </a>
             ))}
           </div>
 
-          {/* Mobile toggle */}
           <button
             aria-label="Toggle menu"
             onClick={() => setMenuOpen((o) => !o)}
-            className="text-white md:hidden"
+            className={`transition-colors duration-500 md:hidden ${textBase}`}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
